@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GOT</string>
+
+    <string name="app_name_splash">GOT\nWesteros\nAt War</string>
+
+    <string name="search_hint">Search by name</string>
+    <string name="total_kings">Total kings</string>
+    <string name="no_network">No Internet Connection.</string>
+</resources>
