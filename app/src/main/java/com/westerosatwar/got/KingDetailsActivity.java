@@ -10,7 +10,7 @@ import com.westerosatwar.got.database.Constants;
 import com.westerosatwar.got.databinding.KingDetailsBinding;
 
 /**
- * Created by Arjun on 1/8/2017.
+ * Created by Arjun.
  */
 
 public class KingDetailsActivity extends BaseActivity {

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by Arjun on 1/7/2017.
+ * Created by Arjun.
  */
 
 public class KingsAdapter extends RecyclerView.Adapter<KingsAdapter.ViewHolder>{

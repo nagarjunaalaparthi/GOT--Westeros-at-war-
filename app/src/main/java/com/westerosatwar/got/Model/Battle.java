@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Arjun on 1/7/2017.
+ * Created by Arjun.
  */
 
 public class Battle {

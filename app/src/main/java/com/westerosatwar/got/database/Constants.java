@@ -1,7 +1,7 @@
 package com.westerosatwar.got.database;
 
 /**
- * Created by Arjun on 1/7/2017.
+ * Created by Arjun.
  */
 
 public interface Constants {

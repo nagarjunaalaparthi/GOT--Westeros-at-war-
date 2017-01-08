@@ -12,7 +12,7 @@ import com.westerosatwar.got.Model.King;
 import java.util.ArrayList;
 
 /**
- * Created by Arjun on 1/7/2017.
+ * Created by Arjun.
  */
 
 public class DBHelper extends SQLiteOpenHelper implements Constants{

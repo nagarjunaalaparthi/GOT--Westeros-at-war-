@@ -4,7 +4,7 @@ import android.databinding.BindingAdapter;
 import android.widget.ImageView;
 
 /**
- * Created by Arjun on 1/8/2017.
+ * Created by Arjun.
  */
 
 public class CustomBindingAdapter {

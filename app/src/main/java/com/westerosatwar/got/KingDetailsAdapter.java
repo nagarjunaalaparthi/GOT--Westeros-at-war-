@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.westerosatwar.got.Model.King;
 
 /**
- * Created by Arjun on 1/8/2017.
+ * Created by Arjun.
  */
 
 public class KingDetailsAdapter extends RecyclerView.Adapter<KingDetailsAdapter.ViewHolder> {
