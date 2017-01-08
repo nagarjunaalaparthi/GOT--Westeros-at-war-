@@ -3,63 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="com.westerosatwar.got.Model.King" />
-        <variable name="king" type="King" />
+
+        <variable
+            name="king"
+            type="King" />
     </data>
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin"
-        android:id="@+id/got_layout"
-        android:background="@drawable/search_background"
-        android:orientation="vertical"
-        android:padding="@dimen/default_margin">
+        android:layout_margin="4dp"
+        android:background="@color/background"
+        android:elevation="4dp"
+        app:cardCornerRadius="4dp">
 
-        <ImageView
-            android:id="@+id/got_image"
-            android:layout_width="@dimen/image_height"
-            android:layout_height="@dimen/image_height"
-            android:background="@drawable/placeholder"
-            android:src="@{king.image, default=@drawable/random_user_1}"
-            android:contentDescription="@string/app_name" />
+        <RelativeLayout
+            android:id="@+id/got_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:padding="4dp">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_toEndOf="@+id/got_image"
-            android:orientation="vertical"
-            android:weightSum="3">
+            <ImageView
+                android:id="@+id/got_image"
+                android:layout_width="@dimen/image_height"
+                android:layout_height="@dimen/image_height"
+                android:background="@drawable/placeholder"
+                android:contentDescription="@string/app_name"
+                android:src="@{king.image, default=@drawable/random_user_1}" />
 
-            <TextView
-                android:id="@+id/name"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/colorPrimary"
-                android:text="@{king.name}"
-                android:textSize="@dimen/default_text_size" />
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_toEndOf="@+id/got_image"
+                android:orientation="vertical"
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/base_strength"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@{king.strength_to_show}"
-                android:textSize="@dimen/search_text_size" />
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:layout_weight="1"
+                    android:text="@{king.name}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/default_text_size" />
 
-            <TextView
-                android:id="@+id/rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@{king.high_rating_to_show}"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/search_text_size" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/base_strength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_weight="1"
+                    android:text="@{king.strength_to_show}"
+                    android:textSize="@dimen/search_text_size" />
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{king.high_rating_to_show}"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/search_text_size" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
 
 </layout>

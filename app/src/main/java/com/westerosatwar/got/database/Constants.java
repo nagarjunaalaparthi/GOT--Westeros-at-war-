@@ -28,4 +28,5 @@ public interface Constants {
 
     String WIN = "win";
     String LOSS = "loss";
+    String KING = "king";
 }

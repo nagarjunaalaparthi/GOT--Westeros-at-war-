@@ -1,10 +1,12 @@
 package com.westerosatwar.got.Model;
 
+import java.io.Serializable;
+
 /**
- * Created by Arjun on 1/7/2017.
+ * Created by Arjun.
  */
 
-public class King {
+public class King implements Serializable{
 
     private String name;
     private int high_rating = 0;

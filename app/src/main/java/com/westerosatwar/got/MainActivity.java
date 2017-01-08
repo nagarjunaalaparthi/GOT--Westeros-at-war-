@@ -1,9 +1,14 @@
 package com.westerosatwar.got;
 
+import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.westerosatwar.got.Model.Battle;
@@ -22,7 +27,8 @@ public class MainActivity extends BaseActivity implements Constants, SwipeRefres
     ActivityMainBinding activityMainBinding;
     List<Battle> battleLists = new ArrayList<>();
 
-    KingsAdapter adapter = new KingsAdapter();
+    KingsAdapter adapter;
+    private ArrayList<King> kings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +38,11 @@ public class MainActivity extends BaseActivity implements Constants, SwipeRefres
         LinearLayoutManager manager = new LinearLayoutManager(this);
         activityMainBinding.recyclerView.setLayoutManager(manager);
 
-        adapter = new KingsAdapter();
+        adapter = new KingsAdapter(this);
         activityMainBinding.recyclerView.setAdapter(adapter);
 
-        activityMainBinding.refreshlayout.setOnRefreshListener(this);
+        setListeners();
+
         if (dbHelper.getKings() == null || dbHelper.getKings().size() == 0) {
             getBattles();
         } else {
@@ -43,12 +50,34 @@ public class MainActivity extends BaseActivity implements Constants, SwipeRefres
         }
     }
 
+    private void setListeners() {
+        activityMainBinding.searchEditText.addTextChangedListener(searchEditTextWatcher);
+        activityMainBinding.searchCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activityMainBinding.searchEditText.setText("");
+                activityMainBinding.searchCancel.setVisibility(View.GONE);
+            }
+        });
+
+        activityMainBinding.filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFilterDialogue();
+            }
+        });
+        activityMainBinding.refreshlayout.setOnRefreshListener(this);
+    }
+
     private void setAdapter() {
        runOnUiThread(new Runnable() {
            @Override
            public void run() {
-               if (dbHelper.getKings() != null) {
-                   adapter.setKings(dbHelper.getKings());
+               kings = dbHelper.getKings();
+               if (kings != null) {
+                   adapter.setKings(kings);
+                   activityMainBinding.totalKings.setText(getString(R.string.total_kings_text,
+                           String.valueOf(kings.size())));
                }
            }
        });
@@ -138,7 +167,8 @@ public class MainActivity extends BaseActivity implements Constants, SwipeRefres
                 king.setName(name);
                 king.setBattlesWon(won);
                 king.setBattlesLost(lost);
-                king.setStrength(attacker > defender ? "attack" : "defend");
+                king.setStrength(attacker > defender
+                        ? getString(R.string.attack) : getString(R.string.defend));
                 if (ambush > siege) {
                     king.setBattleType(ambush > pitchedBattle ? AMBUSH : PITCHED_BATTLE);
                 } else {
@@ -212,4 +242,75 @@ public class MainActivity extends BaseActivity implements Constants, SwipeRefres
         activityMainBinding.refreshlayout.setRefreshing(false);
         getBattles();
     }
+
+    TextWatcher searchEditTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if(charSequence.length() > 0){
+                activityMainBinding.searchCancel.setVisibility(View.VISIBLE);
+            }else{
+                activityMainBinding.searchCancel.setVisibility(View.GONE);
+            }
+            searchKings(charSequence.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+    public void showFilterDialogue(){
+        final Dialog dialog = new Dialog(MainActivity.this,R.style.CustomDialogAnimTheme);
+        dialog.setContentView(R.layout.sort_dialogue);
+        final TextView attack = (TextView) dialog.findViewById(R.id.attack);
+        TextView defend = (TextView) dialog.findViewById(R.id.defend);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        attack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                activityMainBinding.searchEditText.setText(getString(R.string.attack));
+            }
+        });
+        defend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                activityMainBinding.searchEditText.setText(getString(R.string.defend));
+            }
+        });
+        dialog.show();
+    }
+
+    public void searchKings(String text) {
+        ArrayList<King> searchedKings = new ArrayList<>();
+        if (kings != null) {
+            for (int i = 0; i < kings.size(); i++) {
+                King king = kings.get(i);
+                if (king.getName().toLowerCase().contains(text.toLowerCase())
+                        || king.getStrength().toLowerCase().contains(text.toLowerCase())) {
+                    searchedKings.add(king);
+                }
+            }
+            activityMainBinding.totalKings.setText(getString(R.string.total_kings_text,
+                    String.valueOf(searchedKings.size())));
+
+            adapter.setKings(searchedKings);
+
+            if (searchedKings.size() == 0) {
+                Toast.makeText(this, "no events found", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "no events found", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 }

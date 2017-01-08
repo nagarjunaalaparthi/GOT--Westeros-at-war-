@@ -33,46 +33,65 @@
             android:background="@color/colorPrimary"
             android:padding="@dimen/default_margin">
 
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <RelativeLayout
+                android:layout_toStartOf="@+id/filter"
+                android:layout_width="wrap_content"
                 android:background="@drawable/search_background"
-                android:drawableLeft="@android:drawable/ic_menu_search"
-                android:drawablePadding="@dimen/default_margin"
-                android:gravity="center_vertical"
-                android:hint="@string/search_hint"
-                android:paddingBottom="@dimen/default_margin"
-                android:paddingLeft="@dimen/default_margin"
-                android:paddingRight="@dimen/default_button_height"
-                android:paddingTop="@dimen/default_margin"
-                android:textSize="@dimen/search_text_size" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/search_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:drawableLeft="@android:drawable/ic_menu_search"
+                    android:drawablePadding="@dimen/default_margin"
+                    android:gravity="center_vertical"
+                    android:hint="@string/search_hint"
+                    android:paddingBottom="@dimen/default_margin"
+                    android:paddingStart="@dimen/default_margin"
+                    android:paddingEnd="@dimen/default_button_height"
+                    android:paddingTop="@dimen/default_margin"
+                    android:textSize="@dimen/search_text_size" />
+
+                <ImageView
+                    android:id="@+id/search_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/default_margin"
+                    android:src="@android:drawable/ic_notification_clear_all"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
             <ImageView
-                android:id="@+id/search_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:id="@+id/filter"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/default_margin"
-                android:src="@android:drawable/ic_notification_clear_all"
-                android:visibility="gone" />
+                android:src="@drawable/filter" />
+
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/totalevents"
+            android:id="@+id/totalKings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/search_layout"
+            android:gravity="center"
             android:padding="@dimen/default_margin"
             android:text="@string/total_kings"
+            android:layout_centerHorizontal="true"
             android:textColor="@color/colorPrimary" />
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refreshlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/totalevents">
+            android:layout_below="@+id/totalKings">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"

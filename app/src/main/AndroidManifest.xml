@@ -21,6 +21,10 @@
         </activity>
 
         <activity android:name=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".KingDetailsActivity"
             android:screenOrientation="portrait" />
     </application>
 
